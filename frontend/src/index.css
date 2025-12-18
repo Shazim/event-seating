@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for seating map */
+body {
+  @apply min-h-screen bg-gray-50;
+}
+
+/* Seat styling - higher specificity without @layer */
+.seat {
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.seat:focus {
+  outline: none;
+  /* No box-shadow for SVG elements - focus ring is handled by separate SVG element */
+}
+
+.seat-available {
+  fill: #10B981 !important;
+}
+
+.seat-available:hover {
+  fill: #34D399 !important;
+}
+
+.seat-selected {
+  fill: #3B82F6 !important;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.seat-selected:hover {
+  fill: #60A5FA !important;
+}
+
+.seat-reserved {
+  fill: #F59E0B !important;
+  cursor: not-allowed;
+}
+
+.seat-sold {
+  fill: #EF4444 !important;
+  cursor: not-allowed;
+}
+
+.seat-held {
+  fill: #8B5CF6 !important;
+  cursor: not-allowed;
+}
