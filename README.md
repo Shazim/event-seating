@@ -1,273 +1,244 @@
-# Event Seating Solutions
+# Event Seating Platform
 
-This repository contains two complete, production-ready applications built to demonstrate expertise in modern web development:
+A full-stack event seating management system consisting of an interactive frontend seating map and a high-performance backend API. Built with modern web technologies and production-ready architecture.
 
-## 🎭 Frontend: Interactive Event Seating Map
-A React + TypeScript application with SVG-based seating visualization
+## Overview
 
-## ⚡ Backend: Advanced Express.js API  
-An expert-level Express.js API with advanced caching, rate limiting, and async processing
+This platform provides a complete solution for event seating management:
 
----
+- **Frontend**: Interactive React-based seating map with real-time seat selection
+- **Backend**: Express.js API with advanced caching, rate limiting, and performance monitoring
 
-## 🚀 Quick Start
+Both applications are independently deployable and communicate via REST APIs.
+
+## Quick Start
 
 ### Prerequisites
-- Node.js 18+
+
+- Node.js 18 or higher
 - pnpm (recommended) or npm
 
-### Running Both Applications
+### Installation
 
 ```bash
-# Install dependencies for both projects
+# Install frontend dependencies
 cd frontend && pnpm install
+
+# Install backend dependencies
 cd ../backend && pnpm install
-
-# Start backend (Terminal 1)
-cd backend && pnpm dev
-# → Server running at http://localhost:3001
-
-# Start frontend (Terminal 2)  
-cd frontend && pnpm dev
-# → App running at http://localhost:5173
 ```
 
-Both applications are completely independent and can be run separately.
+### Running the Applications
 
----
+Start the backend server first:
 
-## 🎯 Project Overview
+```bash
+cd backend
+pnpm dev
+```
 
-### Frontend: Interactive Seating Map
-**Built for maximum performance and accessibility**
+The API will be available at `http://localhost:3001`
 
-- **React 19 + TypeScript** with strict mode
-- **Interactive SVG seating map** supporting 15,000+ seats at 60fps
-- **Full accessibility** with keyboard navigation and screen readers
-- **Responsive design** for desktop and mobile
-- **Persistent seat selection** via localStorage
-- **Advanced state management** with Zustand
+In a separate terminal, start the frontend:
 
-#### Key Features
-✅ Click/keyboard seat selection (up to 8 seats)  
-✅ Real-time pricing summary  
-✅ Accessibility compliance (WCAG 2.1 AA)  
-✅ Mobile-responsive design  
-✅ Performance optimized with React.memo  
-✅ TypeScript strict mode  
+```bash
+cd frontend
+pnpm dev
+```
 
-### Backend: Advanced Express.js API  
-**Enterprise-grade API with sophisticated caching and rate limiting**
+The application will be available at `http://localhost:5173`
 
-- **Express.js + TypeScript** with comprehensive error handling
-- **Custom LRU Cache** with TTL and background cleanup
-- **Sophisticated rate limiting** with burst handling
-- **Async request processing** with deduplication
-- **Performance monitoring** and metrics collection
-- **Production-ready** with graceful shutdown
+## Architecture
 
-#### Key Features
-✅ Custom LRU cache (60s TTL, O(1) operations)  
-✅ Rate limiting (10 req/min, 5 burst in 10s)  
-✅ Request deduplication for concurrent calls  
-✅ Comprehensive metrics and monitoring  
-✅ Background cleanup and resource management  
-✅ Full TypeScript strict mode compliance  
+### Frontend Application
 
----
+The frontend is a React application built with TypeScript that renders an interactive seating map using SVG. It provides:
 
-## 📁 Repository Structure
+- Real-time seat selection with visual feedback
+- Keyboard navigation for accessibility
+- Persistent state management
+- Responsive design for all device types
+- Performance optimizations for large venue layouts
+
+**Technology Stack:**
+- React 19 with TypeScript
+- Zustand for state management
+- Tailwind CSS for styling
+- Vite for build tooling
+
+### Backend API
+
+The backend is an Express.js server implementing advanced caching and rate limiting strategies:
+
+- Custom LRU cache with TTL expiration
+- Sliding window rate limiting with burst handling
+- Request deduplication for concurrent requests
+- Performance monitoring and metrics collection
+- Comprehensive error handling
+
+**Technology Stack:**
+- Express.js with TypeScript
+- Custom caching implementation
+- Advanced rate limiting middleware
+- Request logging and metrics
+
+## Project Structure
 
 ```
 event-seating/
-├── frontend/                 # React + TypeScript seating map
+├── frontend/                 # React seating map application
 │   ├── src/
-│   │   ├── components/      # UI components
+│   │   ├── components/      # React components
 │   │   ├── hooks/          # Custom React hooks
-│   │   ├── stores/         # Zustand state management
+│   │   ├── stores/         # State management
 │   │   ├── types/          # TypeScript definitions
-│   │   └── App.tsx         # Main application
+│   │   └── utils/          # Utility functions
 │   ├── public/
-│   │   └── venue.json      # Sample venue data
+│   │   └── venue.json      # Venue configuration data
 │   └── README.md           # Frontend documentation
 │
 ├── backend/                  # Express.js API server
 │   ├── src/
 │   │   ├── controllers/    # Route handlers
-│   │   ├── middleware/     # Custom middleware
+│   │   ├── middleware/     # Express middleware
 │   │   ├── services/       # Business logic
 │   │   ├── types/          # TypeScript interfaces
-│   │   └── utils/          # Helper functions
+│   │   └── utils/          # Helper utilities
 │   └── README.md           # Backend documentation
 │
 └── README.md               # This file
 ```
 
----
+## Features
 
-## 🛠 Technical Highlights
+### Frontend Features
 
-### Frontend Architecture
-- **Performance**: Memoized components, efficient re-renders
-- **Accessibility**: ARIA labels, keyboard navigation, focus management
-- **State Management**: Zustand with localStorage persistence
-- **Styling**: Tailwind CSS with custom seat status colors
-- **Build**: Vite for fast development and optimized production builds
+- Interactive SVG-based seating visualization
+- Seat selection with visual feedback (up to 8 seats)
+- Full keyboard navigation support
+- Accessibility compliance (WCAG 2.1 AA)
+- Responsive design for desktop and mobile
+- Persistent seat selection via localStorage
+- Real-time pricing summary
+- Performance optimized for 15,000+ seats
 
-### Backend Architecture  
-- **Caching**: Custom LRU implementation with O(1) operations
-- **Rate Limiting**: Sliding window with token bucket for bursts
-- **Concurrency**: Request deduplication prevents duplicate DB calls
-- **Monitoring**: Performance metrics, cache statistics, error tracking
-- **Production**: Graceful shutdown, resource cleanup, comprehensive logging
+### Backend Features
 
----
+- Custom LRU cache with 60-second TTL
+- Rate limiting: 10 requests/minute with burst capacity
+- Request deduplication for concurrent calls
+- Performance metrics and monitoring
+- Health check endpoints
+- Graceful shutdown handling
+- Comprehensive error handling
 
-## 🧪 Testing & Validation
+## API Endpoints
 
-### Frontend Testing
+### User Management
+
+- `GET /users/:id` - Retrieve user by ID (cached)
+- `POST /users` - Create new user
+
+### Cache Management
+
+- `DELETE /cache` - Clear entire cache
+- `GET /cache-status` - Get cache statistics
+
+### Monitoring
+
+- `GET /health` - Health check endpoint
+- `GET /metrics` - Performance metrics
+
+## Development
+
+### Frontend Development
+
 ```bash
 cd frontend
-pnpm dev
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm preview      # Preview production build
 ```
-- Test seat selection (up to 8 seats)
-- Try keyboard navigation (arrow keys + Enter)
-- Check mobile responsiveness
-- Verify localStorage persistence (refresh page)
+
+### Backend Development
+
+```bash
+cd backend
+pnpm dev          # Start development server with hot reload
+pnpm build        # Compile TypeScript
+pnpm start        # Run production build
+```
+
+## Testing
+
+### Frontend Testing
+
+1. Open the application in your browser
+2. Test seat selection by clicking on available seats
+3. Verify keyboard navigation using arrow keys and Enter/Space
+4. Check mobile responsiveness by resizing the browser
+5. Test persistence by refreshing the page after selecting seats
 
 ### Backend Testing
+
+Test basic functionality:
+
 ```bash
-cd backend  
-pnpm dev
-
-# Test basic functionality
 curl http://localhost:3001/users/1
+```
 
-# Test caching (first request slow, second fast)
-time curl http://localhost:3001/users/1
-time curl http://localhost:3001/users/1
+Test caching performance:
 
-# Test rate limiting (exceed 10 requests/minute)
-for i in {1..12}; do curl http://localhost:3001/users/1; echo; done
+```bash
+time curl http://localhost:3001/users/1  # First request (cache miss)
+time curl http://localhost:3001/users/1  # Second request (cache hit)
+```
 
-# Check metrics
+Test rate limiting:
+
+```bash
+for i in {1..12}; do curl http://localhost:3001/users/1; done
+```
+
+View metrics:
+
+```bash
 curl http://localhost:3001/metrics
 ```
 
----
-
-## 📊 Performance Benchmarks
+## Performance Characteristics
 
 ### Frontend Performance
-- **15,000+ seats**: Smooth 60fps rendering
-- **Initial load**: < 2s for complete venue
-- **Seat selection**: < 16ms response time
-- **Memory usage**: Optimized with component memoization
 
-### Backend Performance  
-- **Cache hits**: Sub-10ms response times
-- **Cache misses**: 200ms (simulated DB delay)
-- **Rate limiting**: Accurate sliding window tracking
-- **Memory management**: Automatic cleanup, no leaks
-- **Concurrent requests**: Deduplication prevents redundant processing
+- Handles 15,000+ seats with smooth 60fps rendering
+- Initial load time under 2 seconds
+- Seat selection response time under 16ms
+- Optimized memory usage with component memoization
 
----
+### Backend Performance
 
-## 🏆 Requirements Fulfilled
+- Cache hits respond in under 10ms
+- Cache misses simulate 200ms database delay
+- Rate limiting tracks requests accurately
+- Automatic memory cleanup prevents leaks
+- Concurrent request deduplication prevents redundant processing
 
-### Frontend Requirements ✅
-- [x] Loads venue.json and renders all seats
-- [x] 60fps performance with 15,000+ seats
-- [x] Mouse click AND keyboard seat selection  
-- [x] Seat details display on selection
-- [x] Up to 8 seats selection limit
-- [x] Persistent selection after page reload
-- [x] Accessibility with ARIA labels and keyboard nav
-- [x] Desktop and mobile responsive design
-- [x] TypeScript strict mode
+## Code Quality
 
-### Backend Requirements ✅
-- [x] Express.js server with TypeScript
-- [x] Advanced LRU cache (60s TTL, background cleanup)
-- [x] GET /users/:id with caching and 200ms delay simulation
-- [x] Sophisticated rate limiting (10/min + 5 burst/10s)
-- [x] Concurrent request optimization with deduplication
-- [x] DELETE /cache and GET /cache-status endpoints
-- [x] POST /users for creating new users
-- [x] Performance monitoring and metrics collection
+Both applications follow strict quality standards:
 
----
+- TypeScript strict mode enabled
+- Comprehensive error handling
+- Clean, maintainable architecture
+- Performance optimizations throughout
+- Production-ready code patterns
+- Detailed inline documentation
 
-## 🎯 Code Quality
+## Documentation
 
-### Both Projects Feature:
-- **TypeScript strict mode** compliance
-- **Comprehensive error handling** 
-- **Clean, maintainable architecture**
-- **Performance optimizations**
-- **Production-ready code**
-- **Detailed documentation**
+- [Frontend Documentation](./frontend/README.md) - Complete frontend guide
+- [Backend Documentation](./backend/README.md) - Complete backend guide
 
-### Best Practices Implemented:
-- Separation of concerns
-- Single responsibility principle  
-- Efficient data structures and algorithms
-- Resource management and cleanup
-- Graceful error handling
-- Comprehensive logging
+## License
 
----
-
-## 🌟 Bonus Features Implemented
-
-### Frontend Bonus:
-- Smooth animations and modern UI design
-- Mobile-optimized touch interactions
-- Enhanced accessibility beyond requirements
-- Real-time selection summary with pricing
-- Custom seat status visualization
-
-### Backend Bonus:
-- Health check and metrics endpoints
-- Graceful shutdown handling  
-- Request/response logging with performance metrics
-- Comprehensive cache statistics
-- Production-ready error handling
-- Request deduplication optimization
-
----
-
-## 🚀 Next Steps / Production Enhancements
-
-### Frontend:
-- WebSocket integration for live seat updates
-- Heat-map visualization by price tiers
-- "Find N adjacent seats" algorithm
-- End-to-end testing with Playwright
-- Dark mode theme support
-
-### Backend:
-- Redis integration for distributed caching
-- Database integration (PostgreSQL/MongoDB)  
-- API authentication and authorization
-- Prometheus metrics integration
-- Docker containerization
-- Load balancing and horizontal scaling
-
----
-
-## 📝 Final Notes
-
-This implementation demonstrates:
-
-1. **Senior-level React development** with performance optimization and accessibility
-2. **Expert Express.js API development** with advanced caching and rate limiting  
-3. **Production-ready code** with comprehensive error handling
-4. **Modern development practices** using TypeScript, proper architecture, and documentation
-5. **Performance engineering** with measurable optimizations
-
-Both applications are fully functional, well-documented, and ready for production deployment.
-
----
-
-**Built with ❤️ demonstrating modern full-stack development expertise**
+This project is provided as-is for demonstration purposes.
